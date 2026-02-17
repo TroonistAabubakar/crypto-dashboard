@@ -18,8 +18,19 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(express.static("client/dist"));
-app.use('/.well-known', express.static(path.join(PUBLIC_DIR, '.well-known')));
+
+// Set iframe embedding headers for ChatGPT
+app.use((req, res, next) => {
+  res.removeHeader("X-Frame-Options");
+  res.setHeader("Content-Security-Policy", "frame-ancestors https://chat.openai.com https://chatgpt.com");
+  next();
+});
+
+// API Routes - Define these BEFORE static file serving
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // Serve OpenAPI file
 app.get('/openapi.yaml', (_req, res) => {
@@ -31,14 +42,12 @@ app.get('/sse', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  res.flushHeaders(); // Ensure headers are sent immediately
+  res.flushHeaders();
 
-  // Send a test message every 5 seconds
   const intervalId = setInterval(() => {
     res.write(`data: ${JSON.stringify({ message: 'Test message from backend' })}\n\n`);
   }, 5000);
 
-  // Clean up when the client closes the connection
   req.on('close', () => {
     clearInterval(intervalId);
     res.end();
@@ -89,16 +98,13 @@ app.post('/crypto-price', async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
+// Static file serving - AFTER API routes
+app.use('/.well-known', express.static(path.join(PUBLIC_DIR, '.well-known')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
-// Set iframe embedding headers for ChatGPT
-app.use((req, res, next) => {
-  res.removeHeader("X-Frame-Options");
-  res.setHeader("Content-Security-Policy", "frame-ancestors https://chat.openai.com https://chatgpt.com");
-  next();
+// SPA fallback - serve index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
 // Start the server
