@@ -59,6 +59,11 @@ paths:
                         price:
                           type: string
                           description: Price at that time
+                  dashboardUrl:
+                    type: string
+                    format: uri
+                    description: URL to view the interactive dashboard with live charts
+                    example: https://crypto-teck-mcp.vercel.app/?coin=bitcoin
         '400':
           description: Invalid symbol provided
           content:

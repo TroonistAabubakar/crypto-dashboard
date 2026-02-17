@@ -86,7 +86,8 @@ app.post('/crypto-price', async (req, res) => {
       coinName: data.name,
       currentPrice: `$${data.market_data.current_price.usd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
       change24h: `${data.market_data.price_change_percentage_24h.toFixed(2)}%`,
-      chartData: chartData
+      chartData: chartData,
+      dashboardUrl: `https://crypto-teck-mcp.vercel.app/?coin=${coinId}`
     };
 
     res.json(result);
