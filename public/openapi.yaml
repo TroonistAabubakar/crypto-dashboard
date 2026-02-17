@@ -1,0 +1,82 @@
+openapi: 3.1.1
+info:
+  title: Live Crypto Dashboard API
+  description: API for fetching live cryptocurrency data (Bitcoin and Ethereum) with price history
+  version: 1.0.0
+servers:
+  - url: https://t53ffb5r-3000.inc1.devtunnels.ms
+    description: Production server
+paths:
+  /crypto-price:
+    post:
+      operationId: getCryptoPrice
+      summary: Get live cryptocurrency price and chart data
+      description: Fetches current price, 24h change, and 7-day price history for Bitcoin or Ethereum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - symbol
+              properties:
+                symbol:
+                  type: string
+                  enum: [bitcoin, ethereum]
+                  description: The cryptocurrency symbol to fetch data for
+                  example: bitcoin
+      responses:
+        '200':
+          description: Successful response with crypto data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  coinName:
+                    type: string
+                    description: Full name of the cryptocurrency
+                    example: Bitcoin
+                  currentPrice:
+                    type: string
+                    description: Current price in USD
+                    example: $45,123.45
+                  change24h:
+                    type: string
+                    description: 24-hour price change percentage
+                    example: 2.34%
+                  chartData:
+                    type: array
+                    description: 7-day price history for charting
+                    items:
+                      type: object
+                      properties:
+                        time:
+                          type: string
+                          format: date-time
+                          description: Timestamp of the price point
+                        price:
+                          type: string
+                          description: Price at that time
+        '400':
+          description: Invalid symbol provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid symbol. Please use "bitcoin" or "ethereum".
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  details:
+                    type: string

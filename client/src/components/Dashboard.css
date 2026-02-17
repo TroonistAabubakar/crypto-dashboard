@@ -1,0 +1,150 @@
+.dashboard {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.coin-info h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.price-info {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.current-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.change-24h {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.change-24h.positive {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.change-24h.negative {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.change-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.refresh-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.refresh-btn:active {
+  transform: translateY(0);
+}
+
+.chart-container {
+  height: 400px;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #fafafa;
+  border-radius: 12px;
+}
+
+.dashboard-footer {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.dashboard-footer p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.timestamp {
+  font-weight: 500;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1.5rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .coin-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .current-price {
+    font-size: 2rem;
+  }
+
+  .change-24h {
+    font-size: 1.2rem;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+
+  .refresh-btn {
+    width: 100%;
+  }
+}

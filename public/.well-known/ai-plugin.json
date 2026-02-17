@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "live_crypto_dashboard",
+  "name_for_human": "Live Crypto Dashboard",
+  "description_for_model": "Fetch crypto data and render dashboard UI.",
+  "description_for_human": "Interactive crypto dashboard.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://t53ffb5r-3000.inc1.devtunnels.ms/openapi.yaml"
+  },
+  "ui": {
+    "type": "webview",
+    "url": "https://t53ffb5r-3000.inc1.devtunnels.ms/"
+  },
+  "logo_url": "https://t53ffb5r-3000.inc1.devtunnels.ms/logo.png",
+  "contact_email": "you@example.com",
+  "legal_info_url": "https://example.com"
+}
