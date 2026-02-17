@@ -37,22 +37,23 @@ app.get('/openapi.yaml', (_req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'openapi.yaml'));
 });
 
-// SSE Route to keep the connection alive
-app.get('/sse', (req, res) => {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.flushHeaders();
-
-  const intervalId = setInterval(() => {
-    res.write(`data: ${JSON.stringify({ message: 'Test message from backend' })}\n\n`);
-  }, 5000);
-
-  req.on('close', () => {
-    clearInterval(intervalId);
-    res.end();
-  });
-});
+// SSE Route - DISABLED: Not compatible with Vercel serverless functions
+// Vercel functions timeout after 10-60 seconds, SSE requires long-lived connections
+// app.get('/sse', (req, res) => {
+//   res.setHeader('Content-Type', 'text/event-stream');
+//   res.setHeader('Cache-Control', 'no-cache');
+//   res.setHeader('Connection', 'keep-alive');
+//   res.flushHeaders();
+//
+//   const intervalId = setInterval(() => {
+//     res.write(`data: ${JSON.stringify({ message: 'Test message from backend' })}\n\n`);
+//   }, 5000);
+//
+//   req.on('close', () => {
+//     clearInterval(intervalId);
+//     res.end();
+//   });
+// });
 
 // API route to get cryptocurrency price data
 app.post('/crypto-price', async (req, res) => {

@@ -4,7 +4,7 @@ info:
   description: API for fetching live cryptocurrency data (Bitcoin and Ethereum) with price history
   version: 1.0.0
 servers:
-  - url: https://crypto-dashboard-app-phi.vercel.app
+  - url: https://crypto-teck.vercel.app
     description: Production server
 paths:
   /crypto-price:

@@ -9,13 +9,13 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://crypto-dashboard-app-phi.vercel.app/openapi.yaml"
+    "url": "https://crypto-teck.vercel.app/openapi.yaml"
   },
   "ui": {
     "type": "webview",
-    "url": "https://crypto-dashboard-app-phi.vercel.app/"
+    "url": "https://crypto-teck.vercel.app/"
   },
-  "logo_url": "https://crypto-dashboard-app-phi.vercel.app/logo.png",
+  "logo_url": "https://crypto-teck.vercel.app/logo.png",
   "contact_email": "support@cryptodashboard.com",
-  "legal_info_url": "https://crypto-dashboard-app-phi.vercel.app/"
+  "legal_info_url": "https://crypto-teck.vercel.app/"
 }
