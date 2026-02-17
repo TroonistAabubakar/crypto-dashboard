@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
   origin: "*",  // Allow requests from any domain (adjust this if needed)
@@ -37,23 +37,28 @@ app.get('/openapi.yaml', (_req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'openapi.yaml'));
 });
 
-// SSE Route - DISABLED: Not compatible with Vercel serverless functions
-// Vercel functions timeout after 10-60 seconds, SSE requires long-lived connections
-// app.get('/sse', (req, res) => {
-//   res.setHeader('Content-Type', 'text/event-stream');
-//   res.setHeader('Cache-Control', 'no-cache');
-//   res.setHeader('Connection', 'keep-alive');
-//   res.flushHeaders();
-//
-//   const intervalId = setInterval(() => {
-//     res.write(`data: ${JSON.stringify({ message: 'Test message from backend' })}\n\n`);
-//   }, 5000);
-//
-//   req.on('close', () => {
-//     clearInterval(intervalId);
-//     res.end();
-//   });
-// });
+// SSE Route for MCP Server - Works on Railway (supports long-lived connections)
+app.get('/sse', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.flushHeaders();
+
+  // Send initial connection message
+  res.write(`data: ${JSON.stringify({ type: 'connected', message: 'MCP Server connected', timestamp: new Date().toISOString() })}\n\n`);
+
+  // Keep connection alive with heartbeat
+  const intervalId = setInterval(() => {
+    res.write(`data: ${JSON.stringify({ type: 'heartbeat', message: 'Crypto Dashboard MCP Server', timestamp: new Date().toISOString() })}\n\n`);
+  }, 30000); // Every 30 seconds
+
+  // Clean up when client disconnects
+  req.on('close', () => {
+    clearInterval(intervalId);
+    res.end();
+  });
+});
 
 // API route to get cryptocurrency price data
 app.post('/crypto-price', async (req, res) => {
