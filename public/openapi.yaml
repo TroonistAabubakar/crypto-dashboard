@@ -4,7 +4,7 @@ info:
   description: API for fetching live cryptocurrency data (Bitcoin and Ethereum) with price history
   version: 1.0.0
 servers:
-  - url: https://crypto-teck.vercel.app
+  - url: https://crypto-teck-mcp.vercel.app
     description: Production server
 paths:
   /crypto-price:
