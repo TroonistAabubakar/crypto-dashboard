@@ -2,20 +2,20 @@
   "schema_version": "v1",
   "name_for_model": "live_crypto_dashboard",
   "name_for_human": "Live Crypto Dashboard",
-  "description_for_model": "Fetch crypto data and render dashboard UI.",
-  "description_for_human": "Interactive crypto dashboard.",
+  "description_for_model": "Fetch real-time cryptocurrency price data for Bitcoin and Ethereum. Get current prices, 24-hour price changes, and 7-day price history charts. Display interactive dashboard UI with live crypto data.",
+  "description_for_human": "View live cryptocurrency prices and charts for Bitcoin and Ethereum with an interactive dashboard.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://t53ffb5r-3000.inc1.devtunnels.ms/openapi.yaml"
+    "url": "https://crypto-dashboard-app-phi.vercel.app/openapi.yaml"
   },
   "ui": {
     "type": "webview",
-    "url": "https://t53ffb5r-3000.inc1.devtunnels.ms/"
+    "url": "https://crypto-dashboard-app-phi.vercel.app/"
   },
-  "logo_url": "https://t53ffb5r-3000.inc1.devtunnels.ms/logo.png",
-  "contact_email": "you@example.com",
-  "legal_info_url": "https://example.com"
+  "logo_url": "https://crypto-dashboard-app-phi.vercel.app/logo.png",
+  "contact_email": "support@cryptodashboard.com",
+  "legal_info_url": "https://crypto-dashboard-app-phi.vercel.app/"
 }
